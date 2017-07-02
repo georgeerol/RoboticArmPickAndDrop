@@ -108,13 +108,13 @@ The joint reference frame origins are indicated by the blue triangle in orientat
 One thing that we need to understand about the URDF file is that each joint is defined relatively to its parent.
 Meaning to get from joint 2, we have to 'translate' .35 meters in the 'X' direction and .42 meters in the Z direction.
 
-![Joint Reference Frame Origins](https://github.com/fouliex/RoboticArmPickAndDrop/blob/master/misc_images/JointReferenceFrameOrigins.JPG)
+![Joint Reference Frame Origins](./misc_images/JointReferenceFrameOrigins.JPG)
 
 Each row of the DH parameter table represents the homogeneous transform between frame {i-1} and frame {i}.Therefore we 
 should incrementally check that the position of our frame origins are consistent with the cumulative displacements 
 defined in the URDF file.
 
-###### Relative location of joint {i-1} to joint {i}
-![Joint Reference Frame Origins](https://github.com/fouliex/RoboticArmPickAndDrop/blob/feature/AddKinematicsAnalysisForRobotArm/misc_images/RelativeLocationOfJoints.JPG)
+##### Relative location of joint {i-1} to joint {i}
+![Joint Reference Frame Origins]( ./misc_images/RelativeLocationOfJoints.JPG)
 
 
