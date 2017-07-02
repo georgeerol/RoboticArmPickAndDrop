@@ -115,6 +115,6 @@ should incrementally check that the position of our frame origins are consistent
 defined in the URDF file.
 
 ###### Relative location of joint {i-1} to joint {i}
-![Joint Reference Frame Origins](https://github.com/fouliex/RoboticArmPickAndDrop/blob/master/misc_images/RelativeLocationOfJoints.JPG)
+![Joint Reference Frame Origins](https://github.com/fouliex/RoboticArmPickAndDrop/blob/feature/AddKinematicsAnalysisForRobotArm/misc_images/RelativeLocationOfJoints.JPG)
 
 
