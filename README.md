@@ -1,4 +1,4 @@
-# Robotic arm - Pick & Place project
+# Robotic arm - Pick and Drop
 
 Make sure you are using robo-nd VM or have Ubuntu+ROS installed locally.
 
