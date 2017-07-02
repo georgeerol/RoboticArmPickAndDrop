@@ -71,7 +71,8 @@ $ cd ~/catkin_ws/src/RoboND-Kinematics-Project/kuka_arm/scripts
 $ ./safe_spawner.sh
 ```
 
-If you are running in demo mode, this is all you need. To run your own Inverse Kinematics code change the **demo** flag described above to _"false"_ and run your code (once the project has successfully loaded) by:
+If you are running in demo mode, this is all you need. To run your own Inverse Kinematics code change the **demo** flag 
+described above to _"false"_ and run your code (once the project has successfully loaded) by:
 ```sh
 $ cd ~/catkin_ws/src/RoboND-Kinematics-Project/kuka_arm/scripts
 $ rosrun kuka_arm IK_server.py
@@ -100,4 +101,14 @@ The demo ends when the robot arm reaches at the top of the drop location.
 There is no loopback implemented yet, so you need to close all the terminal windows in order to restart.
 
 In case the demo fails, close all three terminal windows and rerun the script.
+
+# DH Parameters Kinematics Analysis
+
+The joint reference frame origins are indicated by the blue triangle in orientations  as they  appear in the URDF file.
+One thing that we need to understand about the URDF file is that each joint is defined relatively to its parent.
+Meaning to get from joint 2, we have to 'translate' .35 meters in the 'X' direction and .42 meters in the Z direction.
+
+![Joint Reference Frame Origins](https://github.com/fouliex/RoboticArmPickAndDrop/blob/master/misc_images/JointReferenceFrameOrigins.JPG)
+
+
 
