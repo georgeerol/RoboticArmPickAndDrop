@@ -117,4 +117,5 @@ defined in the URDF file.
 ##### Relative location of joint {i-1} to joint {i}
 ![Joint Reference Frame Origins]( ./misc_images/RelativeLocationOfJoints.JPG)
 
-
+Since the Robot arm has 6 revolute joints, only the &theta; terms are time variable and straightforward.
+  The only  complicated one is joint 2.
