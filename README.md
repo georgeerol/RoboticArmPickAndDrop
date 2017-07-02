@@ -1,4 +1,7 @@
+[//]: # (Image References)
+[image_0]: ./misc_images/PickAndDrop.gif
 # Robotic arm - Pick and Drop
+![alt text][image_0] 
 
 Make sure you are using robo-nd VM or have Ubuntu+ROS installed locally.
 
