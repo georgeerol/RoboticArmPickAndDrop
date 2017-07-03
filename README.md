@@ -126,8 +126,8 @@ Since the Robot arm has 6 revolute joints, only the &theta; terms are time varia
 
 ## Comparing the total Homogeneous transform between the base link and the Gripper Link
 To compare the total homogeneous transform between the base link and the gripper link, one need to account for the 
-difference in orientation of the gripper link frame. To do this is to apply a sequnce of  fix body that is intrinsic
-rotations to the gripper frame in the python code. To do so is to align the two frames, first rorate about the z axis
+difference in orientation of the gripper link frame. To do this is to apply a sequence of  fix body that is intrinsic
+rotations to the gripper frame in the python code. To do so is to align the two frames, first rotate about the z axis
 by 180 degrees and then the y axis by  -90 degrees.
 
 ### Rotate the gripper reference frame  about the z axis by 180 degrees
