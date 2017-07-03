@@ -103,13 +103,14 @@ There is no loopback implemented yet, so you need to close all the terminal wind
 In case the demo fails, close all three terminal windows and rerun the script.
 
 # DH Parameters Kinematics Analysis
-
+## Joint Reference Frame Origins
 The joint reference frame origins are indicated by the blue triangle in orientations  as they  appear in the URDF file.
 One thing that we need to understand about the URDF file is that each joint is defined relatively to its parent.
 Meaning to get from joint 2, we have to 'translate' .35 meters in the 'X' direction and .42 meters in the Z direction.
 
 ![Joint Reference Frame Origins](./misc_images/JointReferenceFrameOrigins.JPG)
 
+## Reference frame  assignesments in URDF file
 Each row of the DH parameter table represents the homogeneous transform between frame {i-1} and frame {i}.Therefore we 
 should incrementally check that the position of our frame origins are consistent with the cumulative displacements 
 defined in the URDF file.
@@ -117,5 +118,26 @@ defined in the URDF file.
 ##### Relative location of joint {i-1} to joint {i}
 ![Joint Reference Frame Origins]( ./misc_images/RelativeLocationOfJoints.JPG)
 
-Since the Robot arm has 6 revolute joints, only the &theta; terms are time variable and straightforward.
-  The only  complicated one is joint 2.
+Since the Robot arm has 6 revolute joints, only the &theta; terms are time variable. The only  complicated one is joint2.
+ &theta;i is the angle between xi-1 and xi measured about the zi axis in a right hand sense. The Robot arm is shown where
+ all the joint angles are assumed to be 0.Therefore, x1 is not parallel to x2 when &theta;2 equals 0.There's a constant
+  offset of -90 degrees
+![Joint Reference Frame Origins]( ./misc_images/TrickyJoint2.JPG)
+
+## Comparing the total Homogeneous transform between the base link and the Gripper Link
+To compare the total homogeneous transform between the base link and the gripper link, one need to account for the 
+difference in orientation of the gripper link frame. To do this is to apply a sequnce of  fix body that is intrinsic
+rotations to the gripper frame in the python code. To do so is to align the two frames, first rorate about the z axis
+by 180 degrees and then the y axis by  -90 degrees.
+
+###Rotate the gripper reference frame  about the z axis by 180 degrees
+![Joint Reference Frame Origins]( ./misc_images/RotateTheGripper180Degrees.JPG)
+
+### Rotate the gripper reference frame about the z axis by -90 degrees
+![Joint Reference Frame Origins]( ./misc_images/RotateTheGripperNegative90Degrees.JPG)
+
+
+
+
+
+
