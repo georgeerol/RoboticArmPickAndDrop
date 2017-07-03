@@ -130,7 +130,7 @@ difference in orientation of the gripper link frame. To do this is to apply a se
 rotations to the gripper frame in the python code. To do so is to align the two frames, first rorate about the z axis
 by 180 degrees and then the y axis by  -90 degrees.
 
-###Rotate the gripper reference frame  about the z axis by 180 degrees
+### Rotate the gripper reference frame  about the z axis by 180 degrees
 ![Joint Reference Frame Origins]( ./misc_images/RotateTheGripper180Degrees.JPG)
 
 ### Rotate the gripper reference frame about the z axis by -90 degrees
