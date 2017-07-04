@@ -110,7 +110,7 @@ Meaning to get from joint 2, we have to 'translate' .35 meters in the 'X' direct
 
 ![Joint Reference Frame Origins](./misc_images/JointReferenceFrameOrigins.JPG)
 
-## Reference frame  assignesments in URDF file
+## Reference frame  assignments in URDF file
 Each row of the DH parameter table represents the homogeneous transform between frame {i-1} and frame {i}.Therefore we 
 should incrementally check that the position of our frame origins are consistent with the cumulative displacements 
 defined in the URDF file.
@@ -135,6 +135,31 @@ by 180 degrees and then the y axis by  -90 degrees.
 
 ### Rotate the gripper reference frame about the z axis by -90 degrees
 ![Joint Reference Frame Origins]( ./misc_images/RotateTheGripperNegative90Degrees.JPG)
+
+## DH Parameters base on the URDF file
+
+###### Twist Angle(&alpha;)
+`Alpha` represents the twist angle
+![Twist Angle]( ./misc_images/TwistAngle.JPG)
+
+###### Link Length(a)
+`a` represents the link length
+
+![Joint Reference Frame Origins]( ./misc_images/LinkLength.JPG)
+
+##### Link offsets(d)
+`d` represents the link Offset
+
+![Link Offset]( ./misc_images/LinkOffset.JPG)
+
+###### Joint Variable(&theta;)
+ `Theta`  represent the joint variable
+ 
+![Joint Variable]( ./misc_images/JointVariable.JPG)
+
+##### Denavit - Hartenberg (DH) Parameters Table
+
+![DH Parameters Table]( ./misc_images/DHParametersTable.JPG)
 
 
 
