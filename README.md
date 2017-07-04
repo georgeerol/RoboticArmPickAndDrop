@@ -140,6 +140,7 @@ by 180 degrees and then the y axis by  -90 degrees.
 
 ###### Twist Angle(&alpha;)
 `Alpha` represents the twist angle
+
 ![Twist Angle]( ./misc_images/TwistAngle.JPG)
 
 ###### Link Length(a)
