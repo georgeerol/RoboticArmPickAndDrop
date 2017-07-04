@@ -158,7 +158,7 @@ by 180 degrees and then the y axis by  -90 degrees.
  
 ![Joint Variable]( ./misc_images/JointVariable.JPG)
 
-##### Denavit - Hartenberg (DH) Parameters Table
+###### Denavit - Hartenberg (DH) Parameters Table
 
 ![DH Parameters Table]( ./misc_images/DHParametersTable.JPG)
 
