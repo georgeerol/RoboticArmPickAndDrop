@@ -64,7 +64,9 @@ def find_wrist_center(end_effector_point, end_effector_roll_pitch_yaw):
 
 def get_theta1():
     wrist_center, r_0_6 = find_wrist_center((px, py, pz), (roll, pitch, yaw))
-    return atan2(wrist_center[1], wrist_center[0])
+    theta1_ = atan2(wrist_center[1], wrist_center[0])
+    print"Get theta 1: " + str(theta1_)
+    return theta1_
 
 
 def get_joint2_coordinate(theta1):
@@ -73,7 +75,6 @@ def get_joint2_coordinate(theta1):
 
 
 def get_theta3(joint_2_end):
-    print"Get theta 3"
     a2_3 = 1.25
     a3_5 = sqrt(1.5 ** 2 + 0.054 ** 2)
     wrist_center, r_0_6 = find_wrist_center((px, py, pz), (roll, pitch, yaw))
@@ -82,11 +83,13 @@ def get_theta3(joint_2_end):
     distance_2_to_5 = sqrt(a2_5[0] ** 2 + a2_5[1] ** 2 + a2_5[2] ** 2)
     cos_theta3_internal = (distance_2_to_5 ** 2 - a2_3 ** 2 - a3_5 ** 2) / (-2 * a2_3 * a3_5)
     theta3_internal = atan2(sqrt(1 - cos_theta3_internal ** 2), cos_theta3_internal)
-    return theta3_internal_init - theta3_internal
+    theta3_ = theta3_internal_init - theta3_internal
+    print"Get theta 3:" + str(theta3_)
+    return theta3_
 
 
 def get_theta2(joint_2_end):
-    print "Get theta 2"
+
     a3_5 = sqrt(1.5 ** 2 + 0.054 ** 2)
     a2_3 = 1.25
 
@@ -99,22 +102,30 @@ def get_theta2(joint_2_end):
     joint_2_wrist_center_dz = joint_2_end[2] - wrist_center[2]
     joint_2_wrist_center_dr = sqrt((wrist_center[0] - joint_2_end[0]) ** 2 + (wrist_center[1] - joint_2_end[1]) ** 2)
     angle_delta2 = atan2(joint_2_wrist_center_dz, joint_2_wrist_center_dr)
-    return angle_delta1 + angle_delta2
+    theta2_ = angle_delta1 + angle_delta2
+    print "Get theta 2:" + str(theta2_)
+    return theta2_
 
 
 def ge_theta4(r_3_6):
     print "Get theta 4"
-    return atan2(r_3_6[2, 1], r_3_6[2, 2])  # rotation about X-axis
+    theta4_ = atan2(r_3_6[2, 1], r_3_6[2, 2])  # rotation about X-axis
+    print "Get theta 4:" + str(theta4_)
+    return theta4_
 
 
 def get_theta5(r_3_6):
     print "Get theta 5"
-    return atan2(-r_3_6[2, 0], sqrt(r_3_6[0, 0] * r_3_6[0, 0] + r_3_6[1, 0] * r_3_6[1, 0]))  # rotation about Y-axis
+    theta5_ = atan2(-r_3_6[2, 0], sqrt(r_3_6[0, 0] * r_3_6[0, 0] + r_3_6[1, 0] * r_3_6[1, 0]))  # rotation about Y-axis
+    print "Get theta 5:" + str(theta5_)
+    return theta5_
 
 
 def get_theta6(r_3_6):
     print "Get theta 6"
-    return atan2(r_3_6[1, 0], r_3_6[0, 0])  # rotation about Z-axis
+    theta6_ = atan2(r_3_6[1, 0], r_3_6[0, 0])  # rotation about Z-axis
+    print "Get theta 6:" + str(theta6_)
+    return theta6_
 
 
 def inverse_kinematics():
