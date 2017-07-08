@@ -18,6 +18,7 @@ from geometry_msgs.msg import Pose
 from mpmath import *
 from sympy import *
 
+
 def dh_transformation(theta_x, d_dz, theta_z, d_dx):
     return Matrix([[cos(theta_z), -sin(theta_z), 0, d_dz],
                    [sin(theta_z) * cos(theta_x), cos(theta_z) * cos(theta_x), -sin(theta_x), -sin(theta_x) * d_dx],
@@ -60,17 +61,21 @@ def find_wrist_center(end_effector_point, end_effector_roll_pitch_yaw):
     rotation0_6 = simplify(do_rotation("x", roll_) * do_rotation("y", pitch_) * do_rotation("z", yaw_))
     return simplify(Matrix([[px], [py], [pz]]) - rotation0_6 * Matrix([[0.303], [0], [0]])), rotation0_6
 
+
 def get_theta1():
     wrist_center, r_0_6 = find_wrist_center((px, py, pz), (roll, pitch, yaw))
     return atan2(wrist_center[1], wrist_center[0])
+
 
 def get_joint2_coordinate(theta1):
     joint2_starting_point = [0.35, 0, 0.75]
     return [joint2_starting_point[0] * cos(theta1), joint2_starting_point[0] * sin(theta1), joint2_starting_point[2]]
 
+
 def get_theta3(joint_2_end):
     print"Get theta 3"
     a2_3 = 1.25
+    a3_5 = sqrt(1.5 ** 2 + 0.054 ** 2)
     wrist_center, r_0_6 = find_wrist_center((px, py, pz), (roll, pitch, yaw))
     theta3_internal_init = pi / 2 + atan2(-0.054, 1.5)
     a2_5 = (wrist_center[0] - joint_2_end[0], wrist_center[1] - joint_2_end[1], wrist_center[2] - joint_2_end[2])
@@ -79,26 +84,38 @@ def get_theta3(joint_2_end):
     theta3_internal = atan2(sqrt(1 - cos_theta3_internal ** 2), cos_theta3_internal)
     return theta3_internal_init - theta3_internal
 
-def get_theta2():
+
+def get_theta2(joint_2_end):
     print "Get theta 2"
     a3_5 = sqrt(1.5 ** 2 + 0.054 ** 2)
     a2_3 = 1.25
+
+    wrist_center, r_0_6 = find_wrist_center((px, py, pz), (roll, pitch, yaw))
+    a2_5 = (wrist_center[0] - joint_2_end[0], wrist_center[1] - joint_2_end[1], wrist_center[2] - joint_2_end[2])
+    distance_2_to_5 = sqrt(a2_5[0] ** 2 + a2_5[1] ** 2 + a2_5[2] ** 2)
+    cos_theta3_internal = (distance_2_to_5 ** 2 - a2_3 ** 2 - a3_5 ** 2) / (-2 * a2_3 * a3_5)
+    theta3_internal = atan2(sqrt(1 - cos_theta3_internal ** 2), cos_theta3_internal)
     angle_delta1 = atan2(a2_3 - a3_5 * cos_theta3_internal, a3_5 * sin(theta3_internal))
     joint_2_wrist_center_dz = joint_2_end[2] - wrist_center[2]
     joint_2_wrist_center_dr = sqrt((wrist_center[0] - joint_2_end[0]) ** 2 + (wrist_center[1] - joint_2_end[1]) ** 2)
     angle_delta2 = atan2(joint_2_wrist_center_dz, joint_2_wrist_center_dr)
     return angle_delta1 + angle_delta2
 
+
 def ge_theta4(r_3_6):
     print "Get theta 4"
     return atan2(r_3_6[2, 1], r_3_6[2, 2])  # rotation about X-axis
 
+
 def get_theta5(r_3_6):
     print "Get theta 5"
-    return  atan2(-r_3_6[2, 0], sqrt(r_3_6[0, 0] * r_3_6[0, 0] + r_3_6[1, 0] * r_3_6[1, 0]))  # rotation about Y-axis
+    return atan2(-r_3_6[2, 0], sqrt(r_3_6[0, 0] * r_3_6[0, 0] + r_3_6[1, 0] * r_3_6[1, 0]))  # rotation about Y-axis
+
+
 def get_theta6(r_3_6):
     print "Get theta 6"
     return atan2(r_3_6[1, 0], r_3_6[0, 0])  # rotation about Z-axis
+
 
 def inverse_kinematics():
     """Calculate Inverse Kinematics in closed form"""
@@ -113,27 +130,27 @@ def inverse_kinematics():
     # the initial joint
     joint_2_end = get_joint2_coordinate(theta1)
 
-
-
     # region find theta3
     # applying the cosines formula for the triangle joint_2-joint_3-joint-5
     theta3 = get_theta3(joint_2_end)
     # endregion
 
     # region find theta2
-    theta2 = get_theta2()
+    theta2 = get_theta2(joint_2_end)
     # endregion
 
     # region find theta3-6
     # extract the rotational part of the transformation
     r_0_3 = simplify((t0_1 * t1_2 * t2_3)[0:3, 0:3])
     # since r_0_3 inverse is the transpose of the matrix
+    wrist_center, r_0_6 = find_wrist_center((px, py, pz), (roll, pitch, yaw))
     r_3_6 = r_0_3.T * r_0_6
 
     # from the euler angle lesson we get the final rotations
-    theta4 = get_theta4(r_3_6)
+    theta4 = ge_theta4(r_3_6)
     theta5 = get_theta5(r_3_6)
     theta6 = get_theta6(r_3_6)
+
 
 def calculate_from_pose(pose_x, pose_y, pose_z, pose_roll, pose_pitch, pose_yaw):
     """Calculate angles given a known pose"""
@@ -195,8 +212,10 @@ def handle_calculate_IK(req):
             joint_trajectory_errors.append(error)
 
         rospy.loginfo("length of Joint Trajectory List: %s" % len(joint_trajectory_list))
-        rospy.loginfo("average error in Joint Trajectory calculation: %s" % (sum(joint_trajectory_errors) / len(joint_trajectory_errors)) )
+        rospy.loginfo("average error in Joint Trajectory calculation: %s" % (
+            sum(joint_trajectory_errors) / len(joint_trajectory_errors)))
         return CalculateIKResponse(joint_trajectory_list)
+
 
 def IK_server():
     # initialize node and declare calculate_ik service
