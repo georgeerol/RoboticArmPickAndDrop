@@ -20,18 +20,18 @@ from sympy import *
 
 
 def calculate_rotation_for_roll_pitch_yaw(roll, pitch, yaw):
-    R_roll = Matrix([[1, 0, 0],
-                     [0, cos(roll), -sin(roll)],
-                     [0, sin(roll), cos(roll)]])
+    rotation_roll = Matrix([[1, 0, 0],
+                            [0, cos(roll), -sin(roll)],
+                            [0, sin(roll), cos(roll)]])
 
-    R_pitch = Matrix([[cos(pitch), 0, sin(pitch)],
-                      [0, 1, 0],
-                      [-sin(pitch), 0, cos(pitch)]])
+    rotation_pitch = Matrix([[cos(pitch), 0, sin(pitch)],
+                             [0, 1, 0],
+                             [-sin(pitch), 0, cos(pitch)]])
 
-    R_yaw = Matrix([[cos(yaw), -sin(yaw), 0],
-                    [sin(yaw), cos(yaw), 0],
-                    [0, 0, 1]])
-    return R_roll, R_pitch, R_yaw
+    rotation_yaw = Matrix([[cos(yaw), -sin(yaw), 0],
+                           [sin(yaw), cos(yaw), 0],
+                           [0, 0, 1]])
+    return rotation_roll, rotation_pitch, rotation_yaw
 
 
 def dh_transformation(theta_x, d_dz, theta_z, d_dx):
@@ -70,12 +70,12 @@ def correction_matrix():
     return simplify(r_z * r_y)
 
 
-def calculate_wrist_center(P_EE, R0_6):
-    return simplify(P_EE - 0.303 * R0_6 * Matrix([[1], [0], [0]]))
+def calculate_wrist_center(p_ee, rotation0_6):
+    return simplify(p_ee - 0.303 * rotation0_6 * Matrix([[1], [0], [0]]))
 
 
-def calculate_theta1(J5):
-    return atan2(J5[1], J5[0])
+def calculate_theta1(joint5):
+    return atan2(joint5[1], joint5[0])
 
 
 def get_joint2(theta1):
