@@ -104,7 +104,7 @@ def calculate_theta3(joint5, theta1):
     return theta3_internal, theta3
 
 
-def calculate_theta2(J5, J2, theta3_internal):
+def calculate_theta2(joint5, joint2, theta3_internal):
     link2_3_starting_point = 1.25
     joint3_starting_point = [0.35, 0, 2]
     joint5_starting_point = [1.85, 0, 1.946]
@@ -116,7 +116,7 @@ def calculate_theta2(J5, J2, theta3_internal):
     distance1 = link3_5_starting_point * sin(theta3_internal)
     distance2 = link2_3_starting_point - link3_5_starting_point * cos(theta3_internal)
     alpha = atan2(distance1, distance2)
-    beta = atan2(J5[2] - J2[2], sqrt((J5[0] - J2[0]) ** 2 + (J5[1] - J2[1]) ** 2))
+    beta = atan2(joint5[2] - joint2[2], sqrt((joint5[0] - joint2[0]) ** 2 + (joint5[1] - joint2[1]) ** 2))
     theta2 = pi / 2 - alpha - beta
     return theta2
 
