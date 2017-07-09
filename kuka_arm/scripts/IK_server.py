@@ -207,7 +207,6 @@ def handle_calculate_IK(req):
         t0_3 = simplify(t0_1 * t1_2 * t2_3)
         rotation0_3 = t0_3[0:3, 0:3]
 
-
         for x in xrange(0, len(req.poses)):
             rospy.loginfo("**Starting Inverse Kinematics**")
             rospy.loginfo("Start End Effector-poses %s" % str(x))
@@ -262,7 +261,6 @@ def handle_calculate_IK(req):
             '''
             rotation0_3_matrix = rotation0_3.evalf(subs={q1: theta1, q2: theta2, q3: theta3})
             rotation0_3_matrix_inverse = rotation0_3_matrix ** -1
-
 
             '''
                    Calculate Theta 6
