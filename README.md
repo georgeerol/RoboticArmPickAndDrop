@@ -11,7 +11,7 @@
 4. [**Videos**](https://github.com/fouliex/RoboticArmPickAndDrop/tree/master/misc_videos)
 5. [**Learn more about ROS with Simple Arm Mover Project**](https://github.com/fouliex/SimpleArmMoverWithROS) 
 
-This project is base on [Udacity RoboND Kinematics](https://github.com/udacity/RoboND-Kinematics-Project) 
+This project is based on [Udacity RoboND Kinematics](https://github.com/udacity/RoboND-Kinematics-Project) 
 
 
 
